@@ -1,25 +1,43 @@
 {
-  "name": "microcms-filter-query",
+  "name": "@tsuki-lab/microcms-filter-query",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
-    "build": "parcel build src/index.ts",
+    "build": "run-p build:*",
+    "build:mjs": "esbuild src/index.ts --bundle --minify --format=esm --outfile=dist/index.mjs",
+    "build:cjs": "esbuild src/index.ts --bundle --minify --format=cjs --outfile=dist/index.cjs",
+    "build:types": "tsc --declaration --emitDeclarationOnly --declarationDir './dist'",
     "test": "vitest run"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tsuki-lab/microcms-filter-query.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "microcms"
+  ],
+  "author": "hanetsuki <me@tsuki-lab.net>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tsuki-lab/microcms-filter-query/issues"
   },
   "homepage": "https://github.com/tsuki-lab/microcms-filter-query#readme",
+  "publishConfig": {
+    "@tsuki-lab:registry": "https://npm.pkg.github.com"
+  },
   "devDependencies": {
-    "parcel-bundler": "^1.12.5",
+    "esbuild": "^0.14.30",
+    "npm-run-all": "^4.1.5",
     "typescript": "^4.6.3",
     "vitest": "^0.8.2"
   }
