@@ -22,4 +22,4 @@ type AndOrFn = MicroCMSFilterQueryType & {
   _parentheses: (query: string) => ConnectFn
 }
 
-export { MicroCMSFilterQueryType }
+export { MicroCMSFilterQueryType, ConnectFn }

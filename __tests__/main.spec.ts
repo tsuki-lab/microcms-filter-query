@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { MicroCMSFilterQuery } from "./index";
+import { MicroCMSFilterQuery } from "../src/main";
 
 describe("equals", () => {
   it("name[equals]John", () => {
