@@ -1,8 +1,9 @@
 name: publish packages
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - "v*"
 
 jobs:
   build:
@@ -28,7 +29,8 @@ jobs:
       - uses: pnpm/action-setup@v2.1.0
         with:
           version: latest
+          registry-url: https://npm.pkg.github.com/
       - run: pnpm install
-      - run: pnpm publish
+      - run: pnpm publish --git-checks false --publish-branch ${GITHUB_REF#refs/heads/}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
