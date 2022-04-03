@@ -17,6 +17,7 @@
     "build:mjs": "esbuild src/index.ts --bundle --minify --format=esm --outfile=dist/index.mjs",
     "build:cjs": "esbuild src/index.ts --bundle --minify --format=cjs --outfile=dist/index.cjs",
     "build:types": "tsc --declaration --emitDeclarationOnly --declarationDir './dist'",
+    "lint:ts": "tsc --noEmit",
     "test": "vitest run"
   },
   "repository": {
