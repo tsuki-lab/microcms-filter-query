@@ -7,7 +7,9 @@ import { MicroCMSFilterQueryType, FilterQueryReturnType } from './types'
  * @class MicroCMSFilterQuery
  * @implements {MicroCMSFilterQueryType}
  */
-export class MicroCMSFilterQuery<T = any> implements MicroCMSFilterQueryType<T> {
+export class MicroCMSFilterQuery<T = any>
+  implements MicroCMSFilterQueryType<T>
+{
   private _query = ''
 
   private connectFn: FilterQueryReturnType<T> = {
@@ -32,7 +34,10 @@ export class MicroCMSFilterQuery<T = any> implements MicroCMSFilterQueryType<T> 
    * @memberof MicroCMSFilterQuery
    * @return {ConjunctFunction}
    */
-  public equals = <K extends keyof T, U extends T[K]>(fieldId: K, value: U): FilterQueryReturnType<T> => {
+  public equals = <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ): FilterQueryReturnType<T> => {
     this._query += `${fieldId}[equals]${value}`
     return this.connectFn
   }
@@ -45,7 +50,10 @@ export class MicroCMSFilterQuery<T = any> implements MicroCMSFilterQueryType<T> 
    * @memberof MicroCMSFilterQuery
    * @return {ConjunctFunction}
    */
-  public notEquals = <K extends keyof T, U extends T[K]>(fieldId: K, value: U): FilterQueryReturnType<T> => {
+  public notEquals = <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ): FilterQueryReturnType<T> => {
     this._query += `${fieldId}[not_equals]${value}`
     return this.connectFn
   }
@@ -58,7 +66,10 @@ export class MicroCMSFilterQuery<T = any> implements MicroCMSFilterQueryType<T> 
    * @memberof MicroCMSFilterQuery
    * @return {ConjunctFunction}
    */
-  public lessThan = <K extends keyof T, U extends T[K]>(fieldId: K, value: U): FilterQueryReturnType<T> => {
+  public lessThan = <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ): FilterQueryReturnType<T> => {
     this._query += `${fieldId}[less_than]${value}`
     return this.connectFn
   }
@@ -71,7 +82,10 @@ export class MicroCMSFilterQuery<T = any> implements MicroCMSFilterQueryType<T> 
    * @memberof MicroCMSFilterQuery
    * @return {ConjunctFunction}
    */
-  public greaterThan = <K extends keyof T, U extends T[K]>(fieldId: K, value: U): FilterQueryReturnType<T> => {
+  public greaterThan = <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ): FilterQueryReturnType<T> => {
     this._query += `${fieldId}[greater_than]${value}`
     return this.connectFn
   }
@@ -84,7 +98,10 @@ export class MicroCMSFilterQuery<T = any> implements MicroCMSFilterQueryType<T> 
    * @memberof MicroCMSFilterQuery
    * @return {ConjunctFunction}
    */
-  public contains = <K extends keyof T, U extends T[K]>(fieldId: K, value: U): FilterQueryReturnType<T> => {
+  public contains = <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ): FilterQueryReturnType<T> => {
     this._query += `${fieldId}[contains]${value}`
     return this.connectFn
   }
@@ -97,7 +114,10 @@ export class MicroCMSFilterQuery<T = any> implements MicroCMSFilterQueryType<T> 
    * @memberof MicroCMSFilterQuery
    * @return {ConjunctFunction}
    */
-  public beginsWith = <K extends keyof T, U extends T[K]>(fieldId: K, value: U): FilterQueryReturnType<T> => {
+  public beginsWith = <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ): FilterQueryReturnType<T> => {
     this._query += `${fieldId}[begins_with]${value}`
     return this.connectFn
   }
@@ -109,7 +129,9 @@ export class MicroCMSFilterQuery<T = any> implements MicroCMSFilterQueryType<T> 
    * @memberof MicroCMSFilterQuery
    * @return {ConjunctFunction}
    */
-  public notExists = <K extends keyof T>(fieldId: K): FilterQueryReturnType<T> => {
+  public notExists = <K extends keyof T>(
+    fieldId: K
+  ): FilterQueryReturnType<T> => {
     this._query += `${fieldId}[not_exists]`
     return this.connectFn
   }
