@@ -33,3 +33,32 @@ axios.get('https://{SERVICE_ID}.microcms.io/api/v1/{END_POINT}', {
   },
 })
 ```
+
+usage for TypeScript.
+
+```ts
+import { MicroCMSFilterQuery } from 'microcms-filter-query'
+
+type Avatar = {
+  name: string
+  gender: 'women' | 'male'
+}
+
+// gender[equals]women
+const filterQuery = new MicroCMSFilterQuery<Avatar & MicroCMSListContent>()
+  .equals('gender', 'women') // argument is type safe
+  .$execute()
+
+// Get request to microcms
+axios.get<MicroCMSListResponse<Avatar>>(
+  'https://{SERVICE_ID}.microcms.io/api/v1/{END_POINT}',
+  {
+    headers: {
+      'X-MICROCMS-API-KEY': `{API_KEY}`,
+    },
+    params: {
+      filters: filterQuery,
+    },
+  }
+)
+```
