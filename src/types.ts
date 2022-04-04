@@ -1,19 +1,37 @@
-type MicroCMSFilterQueryType = {
-  equals: (fieldId: string, value: string) => ConjunctFunction
-  notEquals: (fieldId: string, value: string) => ConjunctFunction
-  lessThan: (fieldId: string, value: string) => ConjunctFunction
-  greaterThan: (fieldId: string, value: string) => ConjunctFunction
-  contains: (fieldId: string, value: string) => ConjunctFunction
-  exists: (fieldId: string) => ConjunctFunction
-  notExists: (fieldId: string) => ConjunctFunction
-  beginsWith: (fieldId: string, value: string) => ConjunctFunction
-  _parentheses: (query: string) => ConjunctFunction
+type MicroCMSFilterQueryType<T> = {
+  equals: <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ) => FilterQueryReturnType<T>
+  notEquals: <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ) => FilterQueryReturnType<T>
+  lessThan: <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ) => FilterQueryReturnType<T>
+  greaterThan: <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ) => FilterQueryReturnType<T>
+  contains: <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ) => FilterQueryReturnType<T>
+  exists: <K extends keyof T>(fieldId: K) => FilterQueryReturnType<T>
+  notExists: <K extends keyof T>(fieldId: K) => FilterQueryReturnType<T>
+  beginsWith: <K extends keyof T, U extends T[K]>(
+    fieldId: K,
+    value: U
+  ) => FilterQueryReturnType<T>
+  _parentheses: (query: string) => FilterQueryReturnType<T>
 }
 
-type ConjunctFunction = {
-  and: () => MicroCMSFilterQueryType
-  or: () => MicroCMSFilterQueryType
+type FilterQueryReturnType<T> = {
+  and: () => MicroCMSFilterQueryType<T>
+  or: () => MicroCMSFilterQueryType<T>
   $execute: () => string
 }
 
-export { MicroCMSFilterQueryType, ConjunctFunction }
+export { MicroCMSFilterQueryType, FilterQueryReturnType }
