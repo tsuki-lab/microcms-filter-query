@@ -18,9 +18,9 @@ basic usage.
 const { MicroCMSFilterQuery } = require('microcms-filter-query') // CommonJS
 import { MicroCMSFilterQuery } from 'microcms-filter-query' //ES6
 
-// gender[equals]women
+// gender[equals]female
 const filterQuery = new MicroCMSFilterQuery()
-  .equals('gender', 'women')
+  .equals('gender', 'female')
   .$execute()
 
 // Get request to microcms
@@ -41,12 +41,12 @@ import { MicroCMSFilterQuery } from 'microcms-filter-query'
 
 type Avatar = {
   name: string
-  gender: 'women' | 'male'
+  gender: 'female' | 'male' | 'other'
 }
 
-// gender[equals]women
+// gender[equals]female
 const filterQuery = new MicroCMSFilterQuery<Avatar & MicroCMSListContent>()
-  .equals('gender', 'women') // argument is type safe
+  .equals('gender', 'female') // argument is type safe
   .$execute()
 
 // Get request to microcms
