@@ -3,18 +3,18 @@ import { describe, expect, it } from 'vitest'
 import { MicroCMSFilterQuery } from '../src'
 
 type Avatar = {
-  id: string;
-  name:string;
-  age: number;
-  gender: 'male' | 'female' | 'other';
+  id: string
+  name: string
+  age: number
+  gender: 'male' | 'female' | 'other'
 } & MicroCMSListContent
 
 type Post = {
-  id: string;
-  title: string;
-  writer: Avatar;
-  content: string;
-  nextLink?: string;
+  id: string
+  title: string
+  writer: Avatar
+  content: string
+  nextLink?: string
 } & MicroCMSListContent
 
 describe('`equals`メソッドの動作テスト', () => {
