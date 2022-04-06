@@ -1,29 +1,53 @@
+import { MicroCMSListContent } from 'microcms-js-sdk'
 import { describe, expect, it } from 'vitest'
-import { MicroCMSFilterQuery } from '../src/main'
+import { MicroCMSFilterQuery } from '../src'
+
+type Avatar = {
+  id: string;
+  name:string;
+  age: number;
+  gender: 'male' | 'female' | 'other';
+} & MicroCMSListContent
+
+type Post = {
+  id: string;
+  title: string;
+  writer: Avatar;
+  content: string;
+  nextLink?: string;
+} & MicroCMSListContent
 
 describe('`equals`メソッドの動作テスト', () => {
-  it('gender[equals]women', () => {
-    const result = new MicroCMSFilterQuery()
-      .equals('gender', 'women')
+  it('gender[equals]female', () => {
+    const result = new MicroCMSFilterQuery<Avatar>()
+      .equals('gender', 'female')
       .$execute()
 
-    expect(result).toBe('gender[equals]women')
+    expect(result).toBe('gender[equals]female')
+  })
+
+  it('writer.gender[equals]female', () => {
+    const result = new MicroCMSFilterQuery<Post>()
+      .equals('writer.gender', 'female')
+      .$execute()
+
+    expect(result).toBe('writer.gender[equals]female')
   })
 })
 
 describe('`notEquals`メソッドの動作テスト', () => {
-  it('gender[not_equals]women', () => {
-    const result = new MicroCMSFilterQuery()
-      .notEquals('gender', 'women')
+  it('gender[not_equals]female', () => {
+    const result = new MicroCMSFilterQuery<Avatar>()
+      .notEquals('gender', 'female')
       .$execute()
 
-    expect(result).toBe('gender[not_equals]women')
+    expect(result).toBe('gender[not_equals]female')
   })
 })
 
 describe('`lessThan`メソッドの動作テスト', () => {
   it('createdAt[less_than]2019-11', () => {
-    const result = new MicroCMSFilterQuery()
+    const result = new MicroCMSFilterQuery<Avatar>()
       .lessThan('createdAt', '2019-11')
       .$execute()
 
@@ -33,7 +57,7 @@ describe('`lessThan`メソッドの動作テスト', () => {
 
 describe('`greaterThan`メソッドの動作テスト', () => {
   it('createdAt[greater_than]2019-10', () => {
-    const result = new MicroCMSFilterQuery()
+    const result = new MicroCMSFilterQuery<Avatar>()
       .greaterThan('createdAt', '2019-10')
       .$execute()
 
@@ -43,7 +67,7 @@ describe('`greaterThan`メソッドの動作テスト', () => {
 
 describe('`contains`メソッドの動作テスト', () => {
   it('title[contains]おすすめ', () => {
-    const result = new MicroCMSFilterQuery()
+    const result = new MicroCMSFilterQuery<Post>()
       .contains('title', 'おすすめ')
       .$execute()
 
@@ -53,7 +77,7 @@ describe('`contains`メソッドの動作テスト', () => {
 
 describe('`exists`メソッドの動作テスト', () => {
   it('nextLink[exists]', () => {
-    const result = new MicroCMSFilterQuery().exists('nextLink').$execute()
+    const result = new MicroCMSFilterQuery<Post>().exists('nextLink').$execute()
 
     expect(result).toBe('nextLink[exists]')
   })
@@ -61,7 +85,9 @@ describe('`exists`メソッドの動作テスト', () => {
 
 describe('`notExists`メソッドの動作テスト', () => {
   it('nextLink[not_exists]', () => {
-    const result = new MicroCMSFilterQuery().notExists('nextLink').$execute()
+    const result = new MicroCMSFilterQuery<Post>()
+      .notExists('nextLink')
+      .$execute()
 
     expect(result).toBe('nextLink[not_exists]')
   })
@@ -69,7 +95,7 @@ describe('`notExists`メソッドの動作テスト', () => {
 
 describe('`beginsWith`メソッドの動作テスト', () => {
   it('publishedAt[begins_with]2019-11', () => {
-    const result = new MicroCMSFilterQuery()
+    const result = new MicroCMSFilterQuery<Post>()
       .beginsWith('publishedAt', '2019-11')
       .$execute()
 
