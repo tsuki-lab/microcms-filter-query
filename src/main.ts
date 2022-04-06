@@ -1,4 +1,10 @@
-import { MicroCMSFilterQueryType, FilterQueryReturnType } from './types'
+import { FilterQuery } from './types'
+
+type FilterQueryReturnType<T> = {
+  and: () => MicroCMSFilterQuery<T & object>
+  or: () => MicroCMSFilterQuery<T & object>
+  $execute: () => string
+}
 
 /**
  * create to `filters` query params for microcms
@@ -7,9 +13,7 @@ import { MicroCMSFilterQueryType, FilterQueryReturnType } from './types'
  * @class MicroCMSFilterQuery
  * @implements {MicroCMSFilterQueryType}
  */
-export class MicroCMSFilterQuery<T = any>
-  implements MicroCMSFilterQueryType<T>
-{
+export class MicroCMSFilterQuery<_T extends object = any, T = FilterQuery<_T>>{
   private _query = ''
 
   private connectFn: FilterQueryReturnType<T> = {

@@ -1,37 +1,27 @@
-type MicroCMSFilterQueryType<T> = {
-  equals: <K extends keyof T, U extends T[K]>(
-    fieldId: K,
-    value: U
-  ) => FilterQueryReturnType<T>
-  notEquals: <K extends keyof T, U extends T[K]>(
-    fieldId: K,
-    value: U
-  ) => FilterQueryReturnType<T>
-  lessThan: <K extends keyof T, U extends T[K]>(
-    fieldId: K,
-    value: U
-  ) => FilterQueryReturnType<T>
-  greaterThan: <K extends keyof T, U extends T[K]>(
-    fieldId: K,
-    value: U
-  ) => FilterQueryReturnType<T>
-  contains: <K extends keyof T, U extends T[K]>(
-    fieldId: K,
-    value: U
-  ) => FilterQueryReturnType<T>
-  exists: <K extends keyof T>(fieldId: K) => FilterQueryReturnType<T>
-  notExists: <K extends keyof T>(fieldId: K) => FilterQueryReturnType<T>
-  beginsWith: <K extends keyof T, U extends T[K]>(
-    fieldId: K,
-    value: U
-  ) => FilterQueryReturnType<T>
-  _parentheses: (query: string) => FilterQueryReturnType<T>
-}
+type ConvertObjectToPrimitive<T extends Exclude<object, null>> = {
+  [K in keyof T]: T[K] extends Exclude<object, null> ? string : T[K]
+};
 
-type FilterQueryReturnType<T> = {
-  and: () => MicroCMSFilterQueryType<T>
-  or: () => MicroCMSFilterQueryType<T>
-  $execute: () => string
-}
+type PrependProperty<T extends Exclude<object, null>, P extends string> = {
+  [K in Extract<keyof T, string> as `${P}.${K}`]: T[K]
+};
 
-export { MicroCMSFilterQueryType, FilterQueryReturnType }
+type ProcessObject<T extends Exclude<object, null>> = {
+  [K in Extract<keyof T, string> as T[K] extends Exclude<object, null> ? K : never]: T[K] extends Exclude<object, null> ? PrependProperty<InternalFilterQuery<T[K]>, K> : never;
+};
+
+type UnionToIntersection<U> = (
+U extends unknown
+  ? (distributedUnion: U) => void
+  : never
+) extends ((mergedIntersection: infer Intersection) => void)
+  ? Intersection
+  : never;
+
+type InternalFilterQuery<T extends Exclude<object, null>> = ConvertObjectToPrimitive<T> & UnionToIntersection<ProcessObject<T>[keyof ProcessObject<T>]>;
+
+type FilterQuery<T extends Exclude<object, null>> = {
+  [K in keyof InternalFilterQuery<T>]: InternalFilterQuery<T>[K]
+};
+
+export { FilterQuery }
