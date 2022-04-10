@@ -4,6 +4,7 @@
     "module": "CommonJS",
     "declaration": true,
     "strict": true,
+    "lib": ["ES2020"]
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]
