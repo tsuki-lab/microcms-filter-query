@@ -13,7 +13,7 @@ type FilterQueryReturnType<T> = {
  * @class MicroCMSFilterQuery
  * @implements {MicroCMSFilterQueryType}
  */
-export class MicroCMSFilterQuery<_T extends object = any, T = FilterQuery<_T>>{
+export class MicroCMSFilterQuery<_T extends object = any, T = FilterQuery<_T>> {
   private _query = ''
 
   private connectFn: FilterQueryReturnType<T> = {
